@@ -28,7 +28,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 // Desplegar o ejecutar la aplicación (opcional, para pruebas locales)
-                sh './app'
+                sh './app.exe'
             }
         }
     }
