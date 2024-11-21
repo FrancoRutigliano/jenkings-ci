@@ -20,9 +20,7 @@ pipeline {
                 sh '''
                 go clean
                 go mod tidy
-
-                # Compilar el binario para Linux (Arch Linux)
-                GOOS=linux GOARCH=amd64 go build -o app .
+                go build -o app .
                 '''
             }
         }
