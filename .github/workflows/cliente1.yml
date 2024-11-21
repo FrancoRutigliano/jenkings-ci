@@ -26,8 +26,6 @@ jobs:
           go-version: '1.23.0'
 
       - name: Build Go Binary for Windows
-        env:
-          $(cat .env) # Usa las variables del archivo .env
         run: |
           GOOS=windows GOARCH=amd64 go build -o myapp.exe ./main.go
 
