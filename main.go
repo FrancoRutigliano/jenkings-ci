@@ -22,6 +22,6 @@ func main() {
 	})
 
 	log.Println(os.Getenv("DATABASE_URL"))
-
+	log.Println("Server started on :3000")
 	http.ListenAndServe(":3000", r)
 }

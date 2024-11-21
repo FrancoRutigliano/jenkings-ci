@@ -9,7 +9,7 @@ import (
 
 func Setup() {
 	// Carga el archivo .env si existe
-	err := godotenv.Load("../.env")
+	err := godotenv.Load("./.env")
 	if err != nil {
 		log.Println("No se encontró .env, usando variables de entorno del sistema")
 	}

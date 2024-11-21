@@ -20,7 +20,7 @@ pipeline {
                 sh '''
                 go clean
                 go mod tidy
-                go build -o app .
+                go build -o app.exe .
                 '''
             }
         }
