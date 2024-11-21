@@ -7,21 +7,27 @@ pipeline {
 
     stages {
         stage('Checkout') {
-            checkout scm
+            steps{
+                checkout scm
+            }
         }
 
         stage('Build') {
-            // Compilar el proyecto Go
+            steps {
+                // Compilar el proyecto Go
                 sh '''
                 go clean
                 go mod tidy
                 go build -o app .
                 '''
+            }
         }
 
         stage('Deploy') {
-            // Desplegar o ejecutar la aplicación (opcional, para pruebas locales)
+            steps {
+                // Desplegar o ejecutar la aplicación (opcional, para pruebas locales)
                 sh './app'
+            }
         }
     }
 
