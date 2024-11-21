@@ -19,6 +19,9 @@ func main() {
 	r.Get("/helloworld", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Hola crayola"))
 	})
-	log.Println("Server started on :3000")
-	http.ListenAndServe(":3000", r)
+	log.Println("Server started on :3000 ....")
+	err := http.ListenAndServe(":3000", r)
+	if err != nil {
+		log.Fatal("error starting the server, error: ", err)
+	}
 }
