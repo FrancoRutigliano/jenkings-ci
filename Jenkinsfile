@@ -1,34 +1,36 @@
 pipeline {
     agent any
     tools {
-        go '1.23.0'
+        go '1.23.0' // Asegúrate de que Go esté correctamente instalado en Jenkins
     }
-    environment  {
+    environment {
         DATABASE_URL = credentials('DATABASE_URL')
     }
 
     stages {
         stage('Checkout') {
-            steps{
+            steps {
                 checkout scm
             }
         }
 
         stage('Build') {
             steps {
-                // Compilar el proyecto Go
+                // Limpiar y preparar el proyecto
                 sh '''
                 go clean
                 go mod tidy
-                go build -o app.exe .
+
+                # Compilar el binario para Linux (Arch Linux)
+                GOOS=linux GOARCH=amd64 go build -o app .
                 '''
             }
         }
 
         stage('Deploy') {
             steps {
-                // Desplegar o ejecutar la aplicación (opcional, para pruebas locales)
-                sh './app.exe'
+                // Ejecutar el binario compilado para Linux
+                sh './app'
             }
         }
     }
@@ -38,7 +40,7 @@ pipeline {
             echo 'Pipeline success'
         }
         failure {
-            echo 'somenthing failed. Check the logs'
+            echo 'something failed. Check the logs'
         }
     }
 }
