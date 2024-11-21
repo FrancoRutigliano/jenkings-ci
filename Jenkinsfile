@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    tools {
+        go '1.23.0'
+    }
     environment  {
         DATABASE_URL = credentials('DATABASE_URL')
     }
