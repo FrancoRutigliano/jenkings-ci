@@ -15,8 +15,7 @@ func Setup() {
 	}
 
 	// Ejemplo de lectura de una variable (puede ser usada más adelante en tu app)
-	databaseURL := os.Getenv("DATABASE_URL_CLIENTE")
-	if databaseURL == "" {
-		log.Fatal("DATABASE_URL no está definida")
-	}
+	database := os.Getenv("DATABASE_URL_CLIENTE")
+
+	log.Println(database)
 }
