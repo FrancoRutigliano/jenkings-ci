@@ -16,9 +16,9 @@ jobs:
 
       - name: Set up environment
         env:
-          DATABASE_URL_CLIENTE1: ${{ secrets.DATABASE_URL_CLIENTE1 }}
+          DATABASE_URL_CLIENTE: ${{ secrets.DATABASE_URL_CLIENTE1 }}
         run: |
-          echo "DATABASE_URL_CLIENTE1=${DATABASE_URL_CLIENTE1}" > .env
+          echo "DATABASE_URL_CLIENTE=${DATABASE_URL_CLIENTE}" > .env
 
       - name: Set up Go
         uses: actions/setup-go@v4
