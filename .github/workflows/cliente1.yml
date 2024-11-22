@@ -3,33 +3,30 @@ on:
     branches:
       - main
 
-name: build-go-binary
+name: Build Go Binary with Secrets
 
 jobs:
   build:
-    name: Build Go Binary with Environment Variables
+    name: Build Go Binary with Embedded Secrets
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up environment
-        env:
-          DATABASE_URL_CLIENTE: ${{ secrets.DATABASE_URL_CLIENTE1 }}
+      - name: Parse secrets and build Go Binary
         run: |
-          echo "DATABASE_URL_CLIENTE=${DATABASE_URL_CLIENTE}" > .env
+          # Extraer valores desde los secretos
+          DATABASE_URL_CLIENTE="${{ secrets.DATABASE_URL_CLIENTE1 }}"
+          OTHER_VAR="static_value_or_other_secret"
 
-      - name: Set up Go
-        uses: actions/setup-go@v4
-        with:
-          go-version: '1.23.0'
+          # Mostrar valores (opcional para debugging, oculta en ejecución real)
+          echo "Compilando con DATABASE_URL_CLIENTE=${DATABASE_URL_CLIENTE}"
 
-      - name: Build Go Binary for Windows
-        env:
-          DATABASE_URL_CLIENTE: ${{ secrets.DATABASE_URL_CLIENTE1 }} # Variable disponible para el build
-        run: |
-          GOOS=windows GOARCH=amd64 go build -o myapp.exe ./main.go
+          # Compilar el binario con las variables incrustadas
+          GOOS=windows GOARCH=amd64 go build \
+            -ldflags="-X 'main.DatabaseURL=${DATABASE_URL_CLIENTE}' -X 'main.OtherVar=${OTHER_VAR}'" \
+            -o myapp.exe ./main.go
 
       - name: Upload Go Binary to Artifacts
         uses: actions/upload-artifact@v3

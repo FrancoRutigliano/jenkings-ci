@@ -1,7 +1,6 @@
 package main
 
 import (
-	"jenkings-ci/config"
 	"log"
 	"net/http"
 
@@ -9,9 +8,14 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 )
 
+var (
+	DatabaseURL string
+	OtherVar    string
+)
+
 func main() {
 
-	config.Setup()
+	log.Println("env database: ", DatabaseURL)
 
 	r := chi.NewRouter()
 
